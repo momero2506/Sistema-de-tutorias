@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prepa 4 UNAM - Tutorías</title>
+    <style>
+        :root {
+            --primary-color: #0a3161;
+            --secondary-color: #bf0d3e;
+            --accent-color: #8c1515;
+            --light-color: #f5f5f5;
+            --dark-color: #333;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f2f5;
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .logo-unam, .logo-prepa4 {
+            height: 80px;
+            width: auto;
+            background: white;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        
+        h1 {
+            font-size: 1.8rem;
+            margin: 0.5rem 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .tabs {
+            display: flex;
+            background: white;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .tab-button {
+            padding: 1rem;
+            background: #e9ecef;
+            border: none;
+            flex: 1;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .tab-button.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 2rem;
+            background: white;
+            border-radius: 0 0 5px 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .form-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 5px;
+            background: #f8f9fa;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+        }
+        
+        .radio-group input {
+            margin-right: 0.5rem;
+        }
+        
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        
+        .subjects-grid label {
+            display: flex;
+            align-items: center;
+            font-weight: normal;
+            background: #e9ecef;
+            padding: 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .subjects-grid input {
+            margin-right: 0.5rem;
+        }
+        
+        button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--accent-color);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        .demand-low {
+            background-color: #d4edda;
+        }
+        
+        .demand-medium {
+            background-color: #fff3cd;
+        }
+        
+        .demand-high {
+            background-color: #f8d7da;
+        }
+        
+        .data-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border-radius: 5px;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+        
+        .filters select {
+            width: auto;
+        }
+        
+        footer {
+            background: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        footer a {
+            color: #ffc107;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .subjects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .radio-group {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .filters {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .filters select {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logos">
+            <img src="https://vectorseek.com/wp-content/uploads/2023/08/Universidad-Nacional-Autonoma-de-Mexico-UNAM-Logo-Vector.svg-.png" alt="UNAM" class="logo-unam">
+            <img src="http://enp4.unam.mx/web/img/Prepa4LogiLogo.png" alt="Prepa 4" class="logo-prepa4">
+        </div>
+        <h1>Sistema de Tutorías Prepa 4 UNAM</h1>
+    </header>
+
+    <div class="container">
+        <!-- Sistema de pestañas -->
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab('registerTab')">Registro</button>
+            <button class="tab-button" onclick="openTab('studentsTab')">Alumnos</button>
+            <button class="tab-button" onclick="openTab('tutorsTab')">Tutores</button>
+            <button class="tab-button" onclick="openTab('demandTab')">Demanda</button>
+        </div>
+        
+        <!-- Pestaña de Registro -->
+        <div id="registerTab" class="tab-content active">
+            <!-- Formulario de Alumnos -->
+            <section class="form-section">
+                <h2>Registro de Alumnos</h2>
+                <form id="studentForm">
+                    <div class="form-group">
+                        <label for="studentName">Nombre completo:</label>
+                        <input type="text" id="studentName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="studentEmail">Correo institucional:</label>
+                        <input type="email" id="studentEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Turno:</label>
+                        <div class="radio-group">
+                            <input type="radio" id="matutino" name="turno" value="Matutino" required>
+                            <label for="matutino">Matutino</label>
+                            <input type="radio" id="vespertino" name="turno" value="Vespertino" required>
+                            <label for="vespertino">Vespertino</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Materias que necesitas tutoría:</label>
+                        <div class="subjects-grid">
+                            <label><input type="checkbox" name="subject" value="Matemáticas IV"> Matemáticas IV</label>
+                            <label><input type="checkbox" name="subject" value="Matemáticas V"> Matemáticas V</label>
+                            <label><input type="checkbox" name="subject" value="Física"> Física</label>
+                            <label><input type="checkbox" name="subject" value="Química"> Química</label>
+                            <label><input type="checkbox" name="subject" value="Biología"> Biología</label>
+                            <label><input type="checkbox" name="subject" value="Inglés"> Inglés</label>
+                            <label><input type="checkbox" name="subject" value="Lengua Española"> Lengua Española</label>
+                            <label><input type="checkbox" name="subject" value="Literatura Universal"> Literatura Universal</label>
+                            <label><input type="checkbox" name="subject" value="Historia de México"> Historia de México</label>
+                            <label><input type="checkbox" name="subject" value="Historia Universal"> Historia Universal</label>
+                            <label><input type="checkbox" name="subject" value="Educación para la Salud"> Edu. Salud</label>
+                            <label><input type="checkbox" name="subject" value="Lógica"> Lógica</label>
+                            <label><input type="checkbox" name="subject" value="Geografía"> Geografía</label>
+                            <label><input type="checkbox" name="subject" value="Etimologías Grecolatinas"> Etimologías</label>
+                        </div>
+                    </div>
+                    <button type="submit">Registrarse</button>
+                </form>
+            </section>
+
+            <!-- Formulario de Tutores -->
+            <section class="form-section">
+                <h2>Registro de Tutores</h2>
+                <form id="tutorForm">
+                    <div class="form-group">
+                        <label for="tutorName">Nombre completo:</label>
+                        <input type="text" id="tutorName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tutorEmail">Correo electrónico:</label>
+                        <input type="email" id="tutorEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="tutorSubject">Materia que puede tutorar:</label>
+                        <select id="tutorSubject" required>
+                            <option value="">Selecciona una materia</option>
+                            <option value="Matemáticas IV">Matemáticas IV</option>
+                            <option value="Matemáticas V">Matemáticas V</option>
+                            <option value="Física">Física</option>
+                            <option value="Química">Química</option>
+                            <option value="Biología">Biología</option>
+                            <option value="Inglés">Inglés</option>
+                            <option value="Lengua Española">Lengua Española</option>
+                            <option value="Literatura Universal">Literatura Universal</option>
+                            <option value="Historia de México">Historia de México</option>
+                            <option value="Historia Universal">Historia Universal</option>
+                            <option value="Educación para la Salud">Edu. Salud</option>
+                            <option value="Lógica">Lógica</option>
+                            <option value="Geografía">Geografía</option>
+                            <option value="Etimologías Grecolatinas">Etimologías</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tutorAvailability">Disponibilidad (horas por semana):</label>
+                        <input type="number" id="tutorAvailability" min="1" max="20" required>
+                    </div>
+                    <button type="submit">Registrarse como Tutor</button>
+                </form>
+            </section>
+        </div>
+        
+        <!-- Pestaña de Alumnos -->
+        <div id="studentsTab" class="tab-content">
+            <section class="data-section">
+                <h2>👨‍🎓 Alumnos Registrados</h2>
+                <div class="filters">
+                    <select id="filterStudentTurno">
+                        <option value="">Todos los turnos</option>
+                        <option value="Matutino">Matutino</option>
+                        <option value="Vespertino">Vespertino</option>
+                    </select>
+                    <button onclick="filterStudents()">Filtrar</button>
+                </div>
+                <div id="studentsList">
+                    <!-- Los alumnos se mostrarán aquí -->
+                </div>
+            </section>
+        </div>
+        
+        <!-- Pestaña de Tutores -->
+        <div id="tutorsTab" class="tab-content">
+            <section class="data-section">
+                <h2>👨‍🏫 Tutores Registrados</h2>
+                <div id="tutorsList">
+                    <!-- Los tutores se mostrarán aquí -->
+                </div>
+            </section>
+        </div>
+        
+        <!-- Pestaña de Demanda -->
+        <div id="demandTab" class="tab-content">
+            <section class="data-section">
+                <h2>📊 Demanda de Tutorías por Materia</h2>
+                <table id="demandTable">
+                    <thead>
+                        <tr>
+                            <th>Materia</th>
+                            <th>Alumnos Registrados</th>
+                            <th>Tutores Disponibles</th>
+                            <th>Demanda</th>
+                        </tr>
+                    </thead>
+                    <tbody id="demandTableBody">
+                        <!-- Los datos de demanda se generarán aquí -->
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; Prepa 4 UNAM. <b>Creador:</b> <i>Esparza Romero Homero</i>
+            <b>Contacto:</b> <a target="_blank" href="mailto:tutoriasprepa4unam@gmail.com">tutoriasprepa4unam@gmail.com</a>.
+        </p>
+    </footer>
+
+    <script>
+        // Datos iniciales
+        let students = JSON.parse(localStorage.getItem('students')) || [];
+        let tutors = JSON.parse(localStorage.getItem('tutors')) || [];
+        
+        // Materias disponibles
+        const subjects = [
+            "Matemáticas IV", "Matemáticas V", "Física", "Química", 
+            "Biología", "Inglés", "Lengua Española", "Literatura Universal", 
+            "Historia de México", "Historia Universal", "Educación para la Salud", 
+            "Lógica", "Geografía", "Etimologías Grecolatinas"
+        ];
+        
+        // Inicializar la aplicación
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar event listeners para los formularios
+            document.getElementById('studentForm').addEventListener('submit', handleStudentSubmit);
+            document.getElementById('tutorForm').addEventListener('submit', handleTutorSubmit);
+            
+            // Cargar datos iniciales
+            renderStudents();
+            renderTutors();
+            updateDemandTable();
+        });
+        
+        // Manejar envío del formulario de estudiantes
+        function handleStudentSubmit(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('studentName').value;
+            const email = document.getElementById('studentEmail').value;
+            const shift = document.querySelector('input[name="turno"]:checked').value;
+            
+            // Obtener materias seleccionadas
+            const selectedSubjects = [];
+            document.querySelectorAll('input[name="subject"]:checked').forEach(checkbox => {
+                selectedSubjects.push(checkbox.value);
+            });
+            
+            // Crear nuevo estudiante
+            const newStudent = {
+                id: Date.now(),
+                name,
+                email,
+                shift,
+                subjects: selectedSubjects,
+                date: new Date().toLocaleDateString()
+            };
+            
+            // Agregar a la lista y guardar
+            students.push(newStudent);
+            localStorage.setItem('students', JSON.stringify(students));
+            
+            // Actualizar la UI
+            renderStudents();
+            updateDemandTable();
+            
+            // Resetear formulario
+            document.getElementById('studentForm').reset();
+            alert('¡Alumno registrado exitosamente!');
+        }
+        
+        // Manejar envío del formulario de tutores
+        function handleTutorSubmit(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('tutorName').value;
+            const email = document.getElementById('tutorEmail').value;
+            const subject = document.getElementById('tutorSubject').value;
+            const availability = document.getElementById('tutorAvailability').value;
+            
+            // Crear nuevo tutor
+            const newTutor = {
+                id: Date.now(),
+                name,
+                email,
+                subject,
+                availability: parseInt(availability),
+                date: new Date().toLocaleDateString()
+            };
+            
+            // Agregar a la lista y guardar
+            tutors.push(newTutor);
+            localStorage.setItem('tutors', JSON.stringify(tutors));
+            
+            // Actualizar la UI
+            renderTutors();
+            updateDemandTable();
+            
+            // Resetear formulario
+            document.getElementById('tutorForm').reset();
+            alert('¡Tutor registrado exitosamente!');
+        }
+        
+        // Mostrar estudiantes en la UI
+        function renderStudents(filteredStudents = null) {
+            const studentsToRender = filteredStudents || students;
+            const container = document.getElementById('studentsList');
+            
+            if (studentsToRender.length === 0) {
+                container.innerHTML = '<p>No hay alumnos registrados aún.</p>';
+                return;
+            }
+            
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Turno</th>
+                            <th>Materias</th>
+                            <th>Fecha de registro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            studentsToRender.forEach(student => {
+                html += `
+                    <tr>
+                        <td>${student.name}</td>
+                        <td>${student.email}</td>
+                        <td>${student.shift}</td>
+                        <td>${student.subjects.join(', ')}</td>
+                        <td>${student.date}</td>
+                    </tr>
+                `;
+            });
+            
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+        
+        // Filtrar estudiantes por turno
+        function filterStudents() {
+            const turno = document.getElementById('filterStudentTurno').value;
+            
+            if (!turno) {
+                renderStudents();
+                return;
+            }
+            
+            const filteredStudents = students.filter(student => student.shift === turno);
+            renderStudents(filteredStudents);
+        }
+        
+        // Mostrar tutores en la UI
+        function renderTutors() {
+            const container = document.getElementById('tutorsList');
+            
+            if (tutors.length === 0) {
+                container.innerHTML = '<p>No hay tutores registrados aún.</p>';
+                return;
+            }
+            
+            let html = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Materia</th>
+                            <th>Disponibilidad (hrs/semana)</th>
+                            <th>Fecha de registro</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+            
+            tutors.forEach(tutor => {
+                html += `
+                    <tr>
+                        <td>${tutor.name}</td>
+                        <td>${tutor.email}</td>
+                        <td>${tutor.subject}</td>
+                        <td>${tutor.availability}</td>
+                        <td>${tutor.date}</td>
+                    </tr>
+                `;
+            });
+            
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+        
+        // Actualizar tabla de demanda
+        function updateDemandTable() {
+            const container = document.getElementById('demandTableBody');
+            let html = '';
+            
+            subjects.forEach(subject => {
+                // Contar estudiantes por materia
+                const studentCount = students.reduce((count, student) => {
+                    return count + (student.subjects.includes(subject) ? 1 : 0);
+                }, 0);
+                
+                // Contar tutores por materia
+                const tutorCount = tutors.reduce((count, tutor) => {
+                    return count + (tutor.subject === subject ? 1 : 0);
+                }, 0);
+                
+                // Calcular nivel de demanda
+                let demandLevel = 'Baja';
+                let demandClass = 'demand-low';
+                
+                if (studentCount > 0 && tutorCount === 0) {
+                    demandLevel = 'Crítica';
+                    demandClass = 'demand-high';
+                } else if (studentCount > tutorCount * 3) {
+                    demandLevel = 'Alta';
+                    demandClass = 'demand-high';
+                } else if (studentCount > tutorCount) {
+                    demandLevel = 'Media';
+                    demandClass = 'demand-medium';
+                }
+                
+                html += `
+                    <tr class="${demandClass}">
+                        <td>${subject}</td>
+                        <td>${studentCount}</td>
+                        <td>${tutorCount}</td>
+                        <td>${demandLevel}</td>
+                    </tr>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+        
+        // Funcionalidad de pestañas
+        function openTab(tabId) {
+            // Ocultar todas las pestañas
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Desactivar todos los botones
+            document.querySelectorAll('.tab-button').forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Activar la pestaña seleccionada
+            document.getElementById(tabId).classList.add('active');
+            
+            // Activar el botón correspondiente
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
